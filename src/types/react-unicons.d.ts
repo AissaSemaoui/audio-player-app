@@ -10,4 +10,7 @@ declare module "@iconscout/react-unicons" {
 
   export const UilPlay: Icon;
   export const UilSearch: Icon;
+  export const UilEstate: Icon;
+  export const UilSlidersVAlt: Icon;
+  export const UilRecordAudio: Icon;
 }
