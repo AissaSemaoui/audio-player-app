@@ -1,9 +1,13 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   content: ["./*.html", "./src/**/*.{ts,js,tsx,jsx}"],
+  corePlugins: {
+    preflight: false,
+  },
   theme: {
     extend: {
       fontFamily: {
+        poppins: ["Poppins", "sans-serif"],
         pally: ["Pally", "sans-serif"],
       },
       colors: {

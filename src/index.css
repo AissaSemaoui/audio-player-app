@@ -1,6 +1,6 @@
 @import url("./styles/typography.css");
 
-/* @tailwind base; */
+@tailwind base;
 @tailwind components;
 @tailwind utilities;
 
@@ -10,3 +10,10 @@
   box-sizing: border-box;
   border-width: 0px;
 }
+
+/* .-translate-y-1\/2 {
+  transform: translateY(-50%);
+}
+.-translate-x-1\/2 {
+  transform: translateX(-50%);
+} */

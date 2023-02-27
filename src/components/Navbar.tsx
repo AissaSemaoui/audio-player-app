@@ -3,16 +3,20 @@ import React from "react";
 
 // Import Icons
 import { UilSearch } from "@iconscout/react-unicons";
+import ROUTES from "../utils/routes";
+import { Link } from "react-router-dom";
 
 function Navbar() {
   return (
     <nav className="w-full h-full flex justify-between items-center gap-2 px-4 py-2 bg-blue-800 border-b border-solid border-blue-700">
-      <Title
-        order={1}
-        className="text-base md:text-lg my-auto text-white cursor-pointer"
-      >
-        Audio Laby
-      </Title>
+      <Link to={ROUTES.HOME} className="no-underline">
+        <Title
+          order={1}
+          className="text-base md:text-lg my-auto text-white cursor-pointer"
+        >
+          Audio Laby
+        </Title>
+      </Link>
       <TextInput
         variant="filled"
         className="hidden md:block md:w-96 max-w-full"
@@ -32,7 +36,7 @@ function Navbar() {
           <Title order={4} className="max-md:hidden">
             Aissa Semaoui
           </Title>
-          <Avatar color="blue" radius="xl">
+          <Avatar color="blue" bg="blue" radius="xl">
             AS
           </Avatar>
         </div>

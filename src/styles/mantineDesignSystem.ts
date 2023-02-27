@@ -58,6 +58,7 @@ const letterSpacing = {
 
 // Define theme
 const theme = {
+  colorScheme: "dark",
   primaryShade: 6,
   primaryColor: "blue",
   headings: {

@@ -1,8 +1,8 @@
 import React from "react";
-import Navbar from "../../components/navbar/Navbar";
+import Navbar from "../../components/Navbar";
 import { Outlet } from "react-router-dom";
-import Sidebar from "../../components/sidebar/Sidebar";
-import AudioPlayer from "../../components/audioPlayer/AudioPlayer";
+import Sidebar from "../../components/Sidebar";
+import AudioPlayer from "../../components/AudioPlayer";
 
 function Layout({ children }: { children?: React.ReactNode }) {
   return (

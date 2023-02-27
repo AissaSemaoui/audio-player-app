@@ -8,14 +8,17 @@ import {
   UilRecordAudio,
 } from "@iconscout/react-unicons";
 
+import ROUTES from "../utils/routes";
+import { Link } from "react-router-dom";
+
 const links = [
   {
-    route: "/",
+    route: ROUTES.HOME,
     name: "home",
     Icon: UilEstate,
   },
   {
-    route: "/live",
+    route: ROUTES.PLAYER,
     name: "live",
     Icon: UilRecordAudio,
   },
@@ -28,16 +31,18 @@ const links = [
 
 function Sidebar() {
   return (
-    <div className="w-max h-full pt-10 px-3 bg-blue-800 border-r border-b border-solid border-blue-700">
+    <div className="w-max h-full pt-10 px-3 bg-blue-800 border-r border-solid border-blue-700">
       {links.map(({ route, name, Icon }) => (
-        <ActionIcon
-          variant="filled"
-          bg="blue.8"
-          color="blue.5"
-          className="mb-2"
-        >
-          <Icon />
-        </ActionIcon>
+        <Link to={route}>
+          <ActionIcon
+            variant="filled"
+            bg="blue.8"
+            color="blue.5"
+            className="mb-3"
+          >
+            <Icon />
+          </ActionIcon>
+        </Link>
       ))}
     </div>
   );
