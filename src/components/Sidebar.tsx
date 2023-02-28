@@ -6,6 +6,7 @@ import {
   UilEstate,
   UilSlidersVAlt,
   UilRecordAudio,
+  UilCloudDownload,
 } from "@iconscout/react-unicons";
 
 import ROUTES from "../utils/routes";
@@ -21,6 +22,11 @@ const links = [
     route: ROUTES.PLAYER,
     name: "live",
     Icon: UilRecordAudio,
+  },
+  {
+    route: ROUTES.UPLOADING,
+    name: "Upload Audio",
+    Icon: UilCloudDownload,
   },
   {
     route: "/settings",

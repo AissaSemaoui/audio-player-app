@@ -11,6 +11,10 @@
   border-width: 0px;
 }
 
+body {
+  /* overflow: hidden; */
+}
+
 /* .-translate-y-1\/2 {
   transform: translateY(-50%);
 }

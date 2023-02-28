@@ -6,6 +6,7 @@ import ROUTES from "./utils/routes";
 import Home from "./pages/home/Home";
 import Layout from "./pages/layout/Layout";
 import Player from "./pages/player/Player";
+import UploadAudio from "./pages/uploading/UploadAudio";
 
 const BrowserRouter = createBrowserRouter([
   {
@@ -14,6 +15,7 @@ const BrowserRouter = createBrowserRouter([
     children: [
       { index: true, element: <Home /> },
       { path: ROUTES.PLAYER, element: <Player /> },
+      { path: ROUTES.UPLOADING, element: <UploadAudio /> },
     ],
   },
 ]);

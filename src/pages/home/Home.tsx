@@ -1,10 +1,10 @@
 import React from "react";
-import { Button, Tabs, Title } from "@mantine/core";
+import { Tabs, Title } from "@mantine/core";
 import TrackCard from "../../components/trackCard/TrackCard";
 
 function Home() {
   return (
-    <div className="w-full h-full px-10 py-12 bg-blue-900 overflow-y-auto">
+    <div className="w-full h-full px-10 py-12 bg-blue-900 overflow-y-scroll">
       <Title order={1} className="text-neutral-50 mb-4">
         Home
       </Title>

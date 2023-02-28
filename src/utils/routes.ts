@@ -5,6 +5,7 @@ interface routes {
 const ROUTES: routes = {
   HOME: "/",
   PLAYER: "/player",
+  UPLOADING: "/uploading",
   LOGIN: "/login",
 };
 

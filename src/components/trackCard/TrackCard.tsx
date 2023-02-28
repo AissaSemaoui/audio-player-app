@@ -1,5 +1,5 @@
 import React from "react";
-import { ActionIcon, Title } from "@mantine/core";
+import { ActionIcon, Text, Title } from "@mantine/core";
 import {
   UilHeartAlt,
   UilPlay,
@@ -33,7 +33,7 @@ function TrackCard() {
         >
           Track Name
         </Title>
-        <p className="text-sm text-neutral-300">Author name</p>
+        <Text className="text-sm text-neutral-300">Author name</Text>
       </div>
       <div className="hidden group-hover:flex justify-end">
         <ActionIcon
