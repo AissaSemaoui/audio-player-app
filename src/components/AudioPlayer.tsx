@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { ActionIcon, Avatar, Text, Title } from "@mantine/core";
 import {
   UilStepBackward,
@@ -7,6 +7,10 @@ import {
   UilVolume,
   UilRepeat,
 } from "@iconscout/react-unicons";
+import { useSelector } from "react-redux";
+import { Howl, Howler } from "howler";
+
+// import jsmediatags from "jsmediatags";
 
 function AudioPlayer() {
   return (
@@ -20,14 +24,66 @@ function AudioPlayer() {
 }
 
 const Controls = () => {
+  const [coverArt, setCoverArt] = useState(null);
+  const currentPlay = useSelector(
+    (state: any) => state.activePlaylist.active[0]
+  );
+
+  console.log(currentPlay);
+  var jsmediatags = window.jsmediatags;
+
+  if (currentPlay)
+    jsmediatags.read(currentPlay, {
+      onSuccess(data) {
+        console.log(data);
+        const format = data.tags.picture?.format;
+        const arrayBuffer: any = data.tags.picture?.data;
+
+        const base64 = btoa(
+          new Uint8Array(arrayBuffer)?.reduce(
+            (data, byte) => data + String.fromCharCode(byte),
+            ""
+          )
+        );
+
+        const url = `data:${format};base64,${base64}`;
+        setCoverArt(url);
+      },
+
+      onError(error) {
+        console.error(error);
+      },
+    });
+
+  const reader: FileReader = new FileReader();
+
+  if (currentPlay) {
+    reader.onload = (event: ProgressEvent<FileReader>) => {
+      const sound: Howl = new Howl({
+        src: [event.target?.result as string],
+        format: ["mp3"],
+        onplayerror: function () {
+          console.log("Failed to play sound");
+        },
+        onload: () => {
+          URL.revokeObjectURL(event.target?.result as string);
+        },
+      });
+      // Play the sound
+      sound.play();
+    };
+    reader.readAsDataURL(currentPlay);
+  }
+
   return (
     <div className="flex w-full items-center px-5">
       <div className="flex-1 flex items-center gap-2 ">
         <Avatar
           radius="md"
+          src={coverArt}
           className="shadow-blue-900 shadow-sm w-10 lg:w-12 h-10 lg:h-12"
         >
-          AM
+          {/* AM */}
         </Avatar>
         <div className="hidden md:block">
           <Title order={3} className="text-lg md:text-xl text-neutral-50">

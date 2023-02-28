@@ -6,19 +6,32 @@ import {
   UilExclamationCircle,
   UilRecordAudio,
 } from "@iconscout/react-unicons";
+import { addNewAudio } from "../../redux/reducers";
+import { useDispatch, useSelector } from "react-redux";
 
 function UploadAudio() {
+  const dispatch = useDispatch();
+  const playlist = useSelector((state: any) => state.activePlaylist.active);
+
+  const handleUpload = (files: File[]) => {
+    console.log(files);
+    dispatch(addNewAudio(files[0]));
+  };
+
   return (
     <div className="flex flex-col w-full px-10 py-12 bg-blue-900 overflow-y-auto">
       <Title order={1} className="text-neutral-50 mb-4">
         Upload your Audio
+        {/* {activePlaylist[0]} */}
       </Title>
       <div className="flex flex-col lg:flex-row gap-8 w-full h-full">
         <Dropzone
           className="grid place-items-center w-full h-full bg-purple-800 hover:bg-purple-700 border-purple-500 hover:border-purple-400 data-[accept=true]:bg-green-100 data-[accept=true]:border-green-600 data-[reject=true]:bg-red-100 data-[reject=true]:border-red-600 "
           color="purple"
-          accept={IMAGE_MIME_TYPE}
-          onDrop={(files) => console.log(files)}
+          // accept={{
+          //   "audio/": [],
+          // }}
+          onDrop={handleUpload}
         >
           <Dropzone.Idle>
             <div className="h-full flex flex-col lg:flex-row justify-center items-center gap-4">
