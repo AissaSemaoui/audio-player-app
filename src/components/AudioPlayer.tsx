@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { ActionIcon, Avatar, Text, Title } from "@mantine/core";
 import {
   UilStepBackward,
@@ -24,56 +24,30 @@ function AudioPlayer() {
 }
 
 const Controls = () => {
-  const [coverArt, setCoverArt] = useState(null);
-  const currentPlay = useSelector(
-    (state: any) => state.activePlaylist.active[0]
-  );
+  const [coverArt, setCoverArt] = useState<string>("");
+  const currentPlay = useSelector((state: any) => state.activeTrack.audioData);
 
-  console.log(currentPlay);
-  var jsmediatags = window.jsmediatags;
+  useEffect(() => {
+    console.log("we are inside controls", currentPlay);
+    if (currentPlay.dataUrl) {
+      setCoverArt(currentPlay.coverImg);
 
-  if (currentPlay)
-    jsmediatags.read(currentPlay, {
-      onSuccess(data) {
-        console.log(data);
-        const format = data.tags.picture?.format;
-        const arrayBuffer: any = data.tags.picture?.data;
-
-        const base64 = btoa(
-          new Uint8Array(arrayBuffer)?.reduce(
-            (data, byte) => data + String.fromCharCode(byte),
-            ""
-          )
-        );
-
-        const url = `data:${format};base64,${base64}`;
-        setCoverArt(url);
-      },
-
-      onError(error) {
-        console.error(error);
-      },
-    });
-
-  const reader: FileReader = new FileReader();
-
-  if (currentPlay) {
-    reader.onload = (event: ProgressEvent<FileReader>) => {
       const sound: Howl = new Howl({
-        src: [event.target?.result as string],
+        src: [currentPlay.dataUrl],
         format: ["mp3"],
+        html5: true,
         onplayerror: function () {
           console.log("Failed to play sound");
         },
         onload: () => {
-          URL.revokeObjectURL(event.target?.result as string);
+          URL.revokeObjectURL(currentPlay.dataUrl);
         },
       });
       // Play the sound
+      console.log("before play xD");
       sound.play();
-    };
-    reader.readAsDataURL(currentPlay);
-  }
+    }
+  }, [currentPlay]);
 
   return (
     <div className="flex w-full items-center px-5">

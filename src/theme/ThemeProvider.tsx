@@ -1,6 +1,6 @@
 import React from "react";
 import { MantineProvider } from "@mantine/core";
-import theme from "../styles/mantineDesignSystem.js";
+import theme from "./mantineDesignSystem.js";
 
 interface Props {
   children?: React.ReactNode;

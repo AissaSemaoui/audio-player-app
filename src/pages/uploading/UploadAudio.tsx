@@ -6,16 +6,13 @@ import {
   UilExclamationCircle,
   UilRecordAudio,
 } from "@iconscout/react-unicons";
-import { addNewAudio } from "../../redux/reducers";
-import { useDispatch, useSelector } from "react-redux";
+import useUploadTrack from "../../hooks/useUploadTrack";
 
 function UploadAudio() {
-  const dispatch = useDispatch();
-  const playlist = useSelector((state: any) => state.activePlaylist.active);
+  const { setUploadedFiles } = useUploadTrack();
 
   const handleUpload = (files: File[]) => {
-    console.log(files);
-    dispatch(addNewAudio(files[0]));
+    setUploadedFiles(files);
   };
 
   return (

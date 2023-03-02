@@ -1,7 +1,7 @@
 /* Typography  */
 @font-face {
   font-family: "Pally";
-  src: url("../fonts/Pally-Variable.woff2") format("woff2");
+  src: url("../assets/fonts/Pally-Variable.woff2") format("woff2");
   font-weight: 400 700;
   font-display: swap;
   font-style: normal;
@@ -9,7 +9,7 @@
 
 @font-face {
   font-family: "Pally";
-  src: url("../fonts/Pally-Regular.woff2") format("woff2");
+  src: url("../assets/fonts/Pally-Regular.woff2") format("woff2");
   font-weight: 400;
   font-display: swap;
   font-style: normal;
@@ -17,7 +17,7 @@
 
 @font-face {
   font-family: "Pally";
-  src: url("../fonts/Pally-Medium.woff2") format("woff2");
+  src: url("../assets/fonts/Pally-Medium.woff2") format("woff2");
   font-weight: 500;
   font-display: swap;
   font-style: normal;
@@ -25,7 +25,7 @@
 
 @font-face {
   font-family: "Pally";
-  src: url("../fonts/Pally-Bold.woff2") format("woff2");
+  src: url("../assets/fonts/Pally-Bold.woff2") format("woff2");
   font-weight: 700;
   font-display: swap;
   font-style: normal;
