@@ -1,33 +1,59 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { addTrack } from "../redux/activeTrack.slice";
+import { playTrack } from "../redux/activeTrack.slice";
+import { setUploadedTracks } from "../redux/uploadedTracks.slice";
+import { addNewTrack } from "../redux/trackList.slice";
+
+interface uploadStatusTypes {
+  name: string;
+  status: boolean;
+}
 
 const useUploadTrack = () => {
   const [uploadedFiles, setUploadedFiles] = useState<File[]>([]);
+  const [uploadStatus, setUploadStatus] = useState<uploadStatusTypes[]>([]);
+
   const dispatch = useDispatch();
 
   useEffect(() => {
-    if (uploadedFiles.length > 0)
-      uploadedFiles.forEach(async (file) => {
-        let { coverImg, audioMeta } = await extractMetadata(file);
-        console.log("we are about : ");
-        let dataUrl = await getDataUrl(file);
-
-        dispatch(
-          addTrack({
+    if (uploadedFiles.length > 0) {
+      // Play tracks
+      uploadedFiles.forEach(async (file: File, index) => {
+        try {
+          console.log(file);
+          let { coverImg, audioMeta } = await extractMetadata(file);
+          let dataUrl = await getDataUrl(file);
+          console.log("failed", audioMeta, dataUrl);
+          const trackData = {
             dataUrl: dataUrl,
             coverImg,
+            id: index,
             metadata: {
               author: audioMeta.author,
               album: audioMeta.album,
-              title: audioMeta.title,
+              title: audioMeta.title || file.name,
             },
-          })
-        );
+          };
+
+          if (dataUrl) {
+            dispatch(addNewTrack(trackData));
+            dispatch(playTrack(trackData));
+            setUploadStatus((prev) => [
+              { name: file.name, status: true },
+              ...prev,
+            ]);
+          }
+        } catch {
+          setUploadStatus((prev) => [
+            { name: file.name, status: false },
+            ...prev,
+          ]);
+        }
       });
+    }
   }, [uploadedFiles]);
 
-  return { setUploadedFiles };
+  return { setUploadedFiles, uploadStatus };
 };
 
 export default useUploadTrack;
@@ -72,14 +98,14 @@ const extractMetadata = (audioFile: File): Promise<metadataTypes> => {
           album: tags?.album || "",
           year: tags?.track || "",
         };
-        coverImg = `data:${format};base64,${base64}`;
+        coverImg = base64 ? `data:${format};base64,${base64}` : "";
 
         resolve({ coverImg, audioMeta });
       },
 
       onError(error) {
         console.error(error);
-        reject("we wasnt able to extract image !");
+        reject(false);
       },
     });
   });
@@ -94,7 +120,8 @@ const getDataUrl = (audioFile: File): Promise<string> => {
     };
 
     reader.onerror = (event: ProgressEvent<FileReader>) => {
-      reject("no way");
+      reject(false);
+      console.log("error", event);
       throw new Error("Can't get data url !!");
     };
 

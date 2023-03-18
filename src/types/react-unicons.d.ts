@@ -21,4 +21,7 @@ declare module "@iconscout/react-unicons" {
   export const UilCloudDownload: Icon;
   export const UilBullseye: Icon;
   export const UilExclamationCircle: Icon;
+  export const UilCheckCircle: Icon;
+  export const UilPause: Icon;
+  export const UilMountains : Icon;
 }

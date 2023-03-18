@@ -1,15 +1,16 @@
-import React from "react";
-import { Dropzone, IMAGE_MIME_TYPE } from "@mantine/dropzone";
+import React, { useEffect } from "react";
+import { Dropzone } from "@mantine/dropzone";
 import { Text, Title } from "@mantine/core";
 import {
   UilBullseye,
+  UilCheckCircle,
   UilExclamationCircle,
   UilRecordAudio,
 } from "@iconscout/react-unicons";
 import useUploadTrack from "../../hooks/useUploadTrack";
 
 function UploadAudio() {
-  const { setUploadedFiles } = useUploadTrack();
+  const { setUploadedFiles, uploadStatus } = useUploadTrack();
 
   const handleUpload = (files: File[]) => {
     setUploadedFiles(files);
@@ -19,11 +20,10 @@ function UploadAudio() {
     <div className="flex flex-col w-full px-10 py-12 bg-blue-900 overflow-y-auto">
       <Title order={1} className="text-neutral-50 mb-4">
         Upload your Audio
-        {/* {activePlaylist[0]} */}
       </Title>
       <div className="flex flex-col lg:flex-row gap-8 w-full h-full">
         <Dropzone
-          className="grid place-items-center w-full h-full bg-purple-800 hover:bg-purple-700 border-purple-500 hover:border-purple-400 data-[accept=true]:bg-green-100 data-[accept=true]:border-green-600 data-[reject=true]:bg-red-100 data-[reject=true]:border-red-600 "
+          className="grid place-items-center w-2/3 h-full bg-purple-800 hover:bg-purple-700 border-purple-500 hover:border-purple-400 data-[accept=true]:bg-green-100 data-[accept=true]:border-green-600 data-[reject=true]:bg-red-100 data-[reject=true]:border-red-600 "
           color="purple"
           // accept={{
           //   "audio/": [],
@@ -68,10 +68,29 @@ function UploadAudio() {
             </div>
           </Dropzone.Reject>
         </Dropzone>
-        <div className="w-full h-full p-4 shadow-md shadow-gray-900 bg-blue-700 border border-solid rounded-md border-blue-600">
+        <div className="flex flex-col w-1/3 p-4 shadow-md shadow-gray-900 overflow-y-hidden bg-blue-700 border border-solid rounded-md border-blue-600">
           <Title order={3} className="mb-4">
-            Uploaded files
+            Uploading logs
           </Title>
+          <div className="flex-1 overflow-y-scroll">
+            {uploadStatus.map((file, index) =>
+              file.status ? (
+                <div className="flex justify-between gap-2 w-full py-2 px-4 mb-2 rounded-md bg-blue-800">
+                  <span>
+                    file : <b>{file.name}</b> uploaded successfully
+                  </span>
+                  <UilCheckCircle className="text-green-600" />
+                </div>
+              ) : (
+                <div className="flex justify-between gap-2 w-full py-2 px-4 mb-2 rounded-md bg-blue-800">
+                  <span>
+                    file : <b>{file.name}</b> fail upload
+                  </span>
+                  <UilExclamationCircle className="text-red-600" />
+                </div>
+              )
+            )}
+          </div>
         </div>
       </div>
     </div>
