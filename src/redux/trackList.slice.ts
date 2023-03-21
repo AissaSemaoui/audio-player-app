@@ -7,6 +7,7 @@ interface trackListTypes {
 export interface trackTypes {
   dataUrl: string;
   coverImg: string;
+  format: string;
   id: number;
   metadata: {
     title: string;
@@ -21,8 +22,14 @@ const trackListSlice = createSlice({
     value: [],
   } as trackListTypes,
   reducers: {
-    addNewTrack: (state: trackListTypes, action: PayloadAction<trackTypes>) => {
-      state.value.push(action.payload);
+    addNewTrack: (
+      state: trackListTypes,
+      action: PayloadAction<trackTypes>
+    ): void => {
+      let updatedState: any = {};
+      updatedState.value = [...state.value];
+      updatedState.value.push(action.payload);
+      return updatedState;
     },
   },
 });

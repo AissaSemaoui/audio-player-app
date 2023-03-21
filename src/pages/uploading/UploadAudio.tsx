@@ -75,14 +75,20 @@ function UploadAudio() {
           <div className="flex-1 overflow-y-scroll">
             {uploadStatus.map((file, index) =>
               file.status ? (
-                <div className="flex justify-between gap-2 w-full py-2 px-4 mb-2 rounded-md bg-blue-800">
+                <div
+                  key={index}
+                  className="flex justify-between gap-2 w-full py-2 px-4 mb-2 rounded-md bg-blue-800"
+                >
                   <span>
                     file : <b>{file.name}</b> uploaded successfully
                   </span>
                   <UilCheckCircle className="text-green-600" />
                 </div>
               ) : (
-                <div className="flex justify-between gap-2 w-full py-2 px-4 mb-2 rounded-md bg-blue-800">
+                <div
+                  key={index}
+                  className="flex justify-between gap-2 w-full py-2 px-4 mb-2 rounded-md bg-blue-800"
+                >
                   <span>
                     file : <b>{file.name}</b> fail upload
                   </span>

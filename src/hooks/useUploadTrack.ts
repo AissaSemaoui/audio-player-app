@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { playTrack } from "../redux/activeTrack.slice";
-import { setUploadedTracks } from "../redux/uploadedTracks.slice";
 import { addNewTrack } from "../redux/trackList.slice";
+import { addToPlaylist } from "../redux/playlist.slice";
 
 interface uploadStatusTypes {
   name: string;
@@ -26,17 +26,19 @@ const useUploadTrack = () => {
           console.log("failed", audioMeta, dataUrl);
           const trackData = {
             dataUrl: dataUrl,
+            format: getTrackFormat(file),
             coverImg,
             id: index,
             metadata: {
-              author: audioMeta.author,
-              album: audioMeta.album,
-              title: audioMeta.title || file.name,
+              author: audioMeta?.author,
+              album: audioMeta?.album,
+              title: audioMeta?.title || file.name,
             },
           };
 
           if (dataUrl) {
             dispatch(addNewTrack(trackData));
+            dispatch(addToPlaylist(trackData.metadata.title));
             dispatch(playTrack(trackData));
             setUploadStatus((prev) => [
               { name: file.name, status: true },
@@ -127,4 +129,14 @@ const getDataUrl = (audioFile: File): Promise<string> => {
 
     reader.readAsDataURL(audioFile);
   });
+};
+
+const getTrackFormat = (file: File): string => {
+  let ext = file.name.match(/\.([a-zA-Z1-9]*)$/);
+
+  if (ext !== null) {
+    return ext[1];
+  } else {
+    return "";
+  }
 };

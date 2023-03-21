@@ -1,19 +1,9 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
+import { trackTypes } from "./trackList.slice";
 
-interface activeTrackTypes {
-  audioData: activeTrackDataTypes;
+export interface activeTrackTypes {
+  audioData: trackTypes;
   activeId: string;
-}
-
-export interface activeTrackDataTypes {
-  dataUrl: string;
-  coverImg: string;
-  id: number;
-  metadata: {
-    title: string;
-    author: string;
-    album: string;
-  };
 }
 
 const activeTrackSlice = createSlice({
@@ -32,12 +22,16 @@ const activeTrackSlice = createSlice({
     },
   } as activeTrackTypes,
   reducers: {
-    playTrack: (
-      state: activeTrackTypes,
-      action: PayloadAction<activeTrackDataTypes>
-    ) => {
-      console.log("inside add track : ", state.audioData);
-      state.audioData = action.payload;
+    playTrack: (state: activeTrackTypes, action: PayloadAction<trackTypes>) => {
+      console.log("inside add track : ", state);
+
+      let updatedState: any = {};
+      updatedState.audioData = action.payload;
+      console.log("update state : ", updatedState);
+      return {
+        ...state,
+        ...updatedState,
+      };
     },
   },
 });

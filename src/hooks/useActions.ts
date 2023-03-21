@@ -1,5 +1,5 @@
 import React from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { playTrack } from "../redux/activeTrack.slice";
 import { trackTypes } from "../redux/trackList.slice";
 

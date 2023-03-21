@@ -9,6 +9,7 @@ import {
   UilPause,
 } from "@iconscout/react-unicons";
 import usePlayTrack from "../hooks/usePlayTrack";
+import usePlaylist from "../hooks/usePlaylist";
 
 // import jsmediatags from "jsmediatags";
 
@@ -59,6 +60,7 @@ const Controls = ({
   pause: any;
 }) => {
   const { metadata, coverImg } = currentPlay;
+  const { getNextTrack, getPrevTrack } = usePlaylist();
 
   const togglePlay = () => {
     isPlaying ? pause() : play();
@@ -84,7 +86,11 @@ const Controls = ({
         </div>
       </div>
       <div className="flex items-center gap-4">
-        <ActionIcon variant="subtle" className="hover:bg-blue-700">
+        <ActionIcon
+          variant="subtle"
+          className="hover:bg-blue-700"
+          onClick={getPrevTrack}
+        >
           <UilStepBackward />
         </ActionIcon>
         <ActionIcon
@@ -96,7 +102,11 @@ const Controls = ({
         >
           {isPlaying ? <UilPause /> : <UilPlay />}
         </ActionIcon>
-        <ActionIcon variant="subtle" className="hover:bg-blue-700">
+        <ActionIcon
+          variant="subtle"
+          className="hover:bg-blue-700"
+          onClick={getNextTrack}
+        >
           <UilSkipForward />
         </ActionIcon>
       </div>

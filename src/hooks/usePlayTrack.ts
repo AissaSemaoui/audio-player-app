@@ -1,18 +1,19 @@
 import React, { useEffect, useRef, useState } from "react";
 import { Howl, Howler } from "howler";
 import { useSelector } from "react-redux";
-import { activeTrackDataTypes } from "../redux/activeTrack.slice";
+import { trackTypes } from "../redux/trackList.slice";
 
 declare module "howler" {
   interface Howl {
     _src: string;
+    _format: string;
   }
 }
 
 const usePlayTrack = () => {
   const [isLoop, setLoop] = useState<boolean>(true);
   const [isPlaying, setPlaying] = useState<boolean>(false);
-  const currentPlay: activeTrackDataTypes = useSelector(
+  const currentPlay: trackTypes = useSelector(
     (state: any) => state.activeTrack.audioData
   );
   Howler.usingWebAudio = true;
@@ -24,11 +25,12 @@ const usePlayTrack = () => {
   );
 
   useEffect(() => {
-    console.log("we are inside player effect ", currentPlay);
+    console.log("we are inside player effect ", sound.current, currentPlay);
     if (currentPlay.dataUrl) {
       // sound.current
       sound.current.stop();
       sound.current.unload();
+      // sound.current._format = currentPlay.format;
       sound.current._src = currentPlay.dataUrl;
       sound.current.load();
 
