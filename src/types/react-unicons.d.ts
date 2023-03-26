@@ -23,5 +23,8 @@ declare module "@iconscout/react-unicons" {
   export const UilExclamationCircle: Icon;
   export const UilCheckCircle: Icon;
   export const UilPause: Icon;
-  export const UilMountains : Icon;
+  export const UilMountains: Icon;
+  export const UilVolumeMute: Icon;
+  export const UilTrashAlt: Icon;
+  export const UilDraggabledots: Icon;
 }

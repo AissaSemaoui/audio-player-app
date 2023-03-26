@@ -1,4 +1,5 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
+import playlistSlice from "./playlist.slice";
 
 interface trackListTypes {
   value: trackTypes[];
@@ -8,6 +9,7 @@ export interface trackTypes {
   dataUrl: string;
   coverImg: string;
   format: string;
+  isFavorite: boolean;
   id: number;
   metadata: {
     title: string;

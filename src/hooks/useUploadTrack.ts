@@ -28,6 +28,7 @@ const useUploadTrack = () => {
             dataUrl: dataUrl,
             format: getTrackFormat(file),
             coverImg,
+            isFavorite: false,
             id: index,
             metadata: {
               author: audioMeta?.author,
@@ -38,18 +39,24 @@ const useUploadTrack = () => {
 
           if (dataUrl) {
             dispatch(addNewTrack(trackData));
-            dispatch(addToPlaylist(trackData.metadata.title));
+            dispatch(
+              addToPlaylist({
+                title: trackData?.metadata?.title || "",
+                coverImg: trackData?.coverImg || "",
+              })
+            );
             dispatch(playTrack(trackData));
             setUploadStatus((prev) => [
               { name: file.name, status: true },
               ...prev,
             ]);
           }
-        } catch {
+        } catch (error) {
           setUploadStatus((prev) => [
             { name: file.name, status: false },
             ...prev,
           ]);
+          throw error;
         }
       });
     }

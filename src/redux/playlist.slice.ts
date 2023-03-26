@@ -2,10 +2,15 @@ import { PayloadAction, createSlice, current } from "@reduxjs/toolkit";
 import { trackTypes } from "./trackList.slice";
 
 export interface playlistTypes {
-  tracks: any[];
+  tracks: playlistTrack[];
   currentPlayTitle: string;
   nextTrackTitle: string;
   prevTrackTitle: string;
+}
+
+interface playlistTrack {
+  title: string;
+  coverImg: string;
 }
 
 const playlistSlice = createSlice({
@@ -17,17 +22,20 @@ const playlistSlice = createSlice({
     prevTrackTitle: "",
   } as playlistTypes,
   reducers: {
-    addToPlaylist: (state: playlistTypes, action: { payload: string }) => {
-      const newTrackName = action.payload;
+    addToPlaylist: (
+      state: playlistTypes,
+      action: { payload: playlistTrack }
+    ) => {
+      const newTrack = action.payload;
 
       const updatedState = {
         tracks: [...state.tracks],
-        currentPlayTitle: newTrackName,
-        prevTrackTitle: state.tracks[state.tracks.length - 1],
-        nextTrackTitle: state.tracks[0],
+        currentPlayTitle: newTrack?.title || state.currentPlayTitle,
+        prevTrackTitle: state.tracks[state.tracks.length - 1]?.title || "",
+        nextTrackTitle: state.tracks[0]?.title || "",
       };
 
-      updatedState.tracks.push(newTrackName);
+      updatedState.tracks.push(newTrack);
       return {
         ...state,
         ...updatedState,
@@ -39,7 +47,7 @@ const playlistSlice = createSlice({
       const tracks = state.tracks;
 
       const currentPlayIndex = tracks.findIndex(
-        (title) => title === currentPlayTitle
+        (track) => track.title === currentPlayTitle
       );
 
       let updatedState = {};
@@ -50,15 +58,16 @@ const playlistSlice = createSlice({
 
       if (currentPlayIndex === lastTrackIndex) {
         updatedState = {
-          prevTrackTitle: tracks[currentPlayIndex] || "",
-          currentPlayTitle: tracks[0] || "",
-          nextTrackTitle: tracks[1] || "",
+          prevTrackTitle: tracks[currentPlayIndex]?.title || "",
+          currentPlayTitle: tracks[0]?.title || "",
+          nextTrackTitle: tracks[1]?.title || "",
         };
       } else {
         updatedState = {
-          prevTrackTitle: tracks[currentPlayIndex] || "",
-          currentPlayTitle: tracks[currentPlayIndex + 1] || "",
-          nextTrackTitle: tracks[currentPlayIndex + 2] || tracks[0] || "",
+          prevTrackTitle: tracks[currentPlayIndex]?.title || "",
+          currentPlayTitle: tracks[currentPlayIndex + 1]?.title || "",
+          nextTrackTitle:
+            tracks[currentPlayIndex + 2]?.title || tracks[0]?.title || "",
         };
       }
 
@@ -73,7 +82,7 @@ const playlistSlice = createSlice({
       const tracks = state.tracks;
 
       const currentPlayIndex = tracks.findIndex(
-        (title) => title === currentPlayTitle
+        (track) => track.title === currentPlayTitle
       );
       console.log("currentPlayIndex : ", currentPlayIndex);
 
@@ -83,16 +92,18 @@ const playlistSlice = createSlice({
 
       if (currentPlayIndex === 0) {
         updatedState = {
-          currentPlayTitle: tracks[lastTrackIndex] || "",
-          prevTrackTitle: tracks[lastTrackIndex - 1] || "",
-          nextTrackTitle: tracks[currentPlayIndex] || "",
+          currentPlayTitle: tracks[lastTrackIndex]?.title || "",
+          prevTrackTitle: tracks[lastTrackIndex - 1]?.title || "",
+          nextTrackTitle: tracks[currentPlayIndex]?.title || "",
         };
       } else {
         updatedState = {
           prevTrackTitle:
-            tracks[currentPlayIndex - 2] || tracks[lastTrackIndex] || "",
-          currentPlayTitle: tracks[currentPlayIndex - 1] || "",
-          nextTrackTitle: tracks[currentPlayIndex] || "",
+            tracks[currentPlayIndex - 2]?.title ||
+            tracks[lastTrackIndex]?.title ||
+            "",
+          currentPlayTitle: tracks[currentPlayIndex - 1]?.title || "",
+          nextTrackTitle: tracks[currentPlayIndex]?.title || "",
         };
       }
       return {

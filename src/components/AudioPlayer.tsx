@@ -11,6 +11,8 @@ import {
 import usePlayTrack from "../hooks/usePlayTrack";
 import usePlaylist from "../hooks/usePlaylist";
 
+import Volume from "./Volume";
+
 // import jsmediatags from "jsmediatags";
 
 function AudioPlayer() {
@@ -111,11 +113,9 @@ const Controls = ({
         </ActionIcon>
       </div>
       <div className="flex justify-end gap-2 flex-1">
+        <Volume />
         <ActionIcon variant="subtle" className="hover:bg-blue-700">
           <UilRepeat />
-        </ActionIcon>
-        <ActionIcon variant="subtle" className="hover:bg-blue-700">
-          <UilVolume />
         </ActionIcon>
       </div>
     </div>

@@ -17,13 +17,13 @@ function UploadAudio() {
   };
 
   return (
-    <div className="flex flex-col w-full px-10 py-12 bg-blue-900 overflow-y-auto">
+    <div className="flex flex-col w-full px-5 md:px-10 py-6 md:py-12 bg-blue-900 overflow-y-auto">
       <Title order={1} className="text-neutral-50 mb-4">
         Upload your Audio
       </Title>
-      <div className="flex flex-col lg:flex-row gap-8 w-full h-full">
+      <div className="flex flex-col md:flex-row gap-8 w-full h-full">
         <Dropzone
-          className="grid place-items-center w-2/3 h-full bg-purple-800 hover:bg-purple-700 border-purple-500 hover:border-purple-400 data-[accept=true]:bg-green-100 data-[accept=true]:border-green-600 data-[reject=true]:bg-red-100 data-[reject=true]:border-red-600 "
+          className="grid place-items-center w-full md:w-1/2 lg:w-2/3 h-full bg-purple-800 hover:bg-purple-700 border-purple-500 hover:border-purple-400 data-[accept=true]:bg-green-100 data-[accept=true]:border-green-600 data-[reject=true]:bg-red-100 data-[reject=true]:border-red-600 "
           color="purple"
           // accept={{
           //   "audio/": [],
@@ -68,7 +68,7 @@ function UploadAudio() {
             </div>
           </Dropzone.Reject>
         </Dropzone>
-        <div className="flex flex-col w-1/3 p-4 shadow-md shadow-gray-900 overflow-y-hidden bg-blue-700 border border-solid rounded-md border-blue-600">
+        <div className="flex flex-col w-full md:w-1/2 lg:w-1/3 p-4 shadow-md shadow-gray-900 overflow-y-hidden bg-blue-700 border border-solid rounded-md border-blue-600">
           <Title order={3} className="mb-4">
             Uploading logs
           </Title>
